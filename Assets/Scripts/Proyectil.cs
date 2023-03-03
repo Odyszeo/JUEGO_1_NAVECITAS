@@ -11,7 +11,7 @@ public class Proyectil : MonoBehaviour
     private float _speed = 5;
 
     [SerializeField]
-    private float _tiempoDeAutodestruccion = 3;
+    private float _tiempoDeAutodestruccion = 5;
 
     private GUIManager _gui;
     

@@ -22,6 +22,12 @@ public class Movimiento : MonoBehaviour
     [SerializeField]
     private Proyectil _disparoOriginal;
 
+    [SerializeField]
+    private Enemigo _enemigo;
+
+    private float xMin, xMax;
+    private float yMin, yMax;
+
     // ciclo de vida / lifecycle
     // - existen métodos que se invocan en momentos específicos de la vida del script
     
@@ -35,6 +41,18 @@ public class Movimiento : MonoBehaviour
     // Se invoca una vez después que fueron invocados todos los awakes
     void Start()
     {
+        // Get the size of the camera
+        var distance = transform.position.z - Camera.main.transform.position.z;
+        var leftMost = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, distance));
+        var rightMost = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, distance));
+        var topMost = Camera.main.ViewportToWorldPoint(new Vector3(0, 1, distance));
+        var bottomMost = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, distance));
+
+        xMin = leftMost.x;
+        xMax = rightMost.x;
+        yMin = bottomMost.y;
+        yMax = topMost.y;
+
         Debug.Log("START");
 
         // como obtener referencia a otro componente
@@ -48,118 +66,64 @@ public class Movimiento : MonoBehaviour
         // si tienes require esto ya no es necesario
         Assert.IsNotNull(_transform, "ES NECESARIO PARA MOVIMIENTO TENER UN TRANSFORM");
         Assert.IsNotNull(_disparoOriginal, "DISPARO NO PUEDE SER NULO");
+        Assert.IsNotNull(_enemigo, "Enemigo NO PUEDE SER NULO");
         Assert.AreNotEqual(0, _speed, "VELOCIDAD DEBE SER MAYOR A 0");
+
+
+        
     }
 
-    // Update is called once per frame
-    // frame? cuadro?
-    // fotograma
-    // target mínimo - 30 fps
-    // ideal - 60+ fps
+
     void Update(){
-        //Debug.LogWarning("UPDATE");
-
-        // SIEMPRE vamos a tratar que este sea lo más magro posible
-        // update lo usamos para 2 cosas
-        // 1 - entrada de usuario
-        // 2 - movimiento
-
-        // ahorita - vamos a hacer polling por dispositivo
         
-        // true - cuando en el cuadro anterior estaba libre
-        // y en este está presionada
-        if(Input.GetKeyDown(KeyCode.Z))
-        {
-            print("KEY DOWN: Z");
-        }
-
-        // true - cuando en el cuadro anterior estaba presionada
-        // y en el actual sigue presionada
-        if(Input.GetKey(KeyCode.Z))
-        {
-            print("KEY: Z");
-        }
-
-        // true - estaba presionada
-        // ya está libre
-        if(Input.GetKeyUp(KeyCode.Z))
-        {
-            print("KEY UP: Z");
-        }
-
-        if(Input.GetMouseButtonDown(0))
-        {
-            print("MOUSE BUTTON DOWN");
-        }
-
-        if(Input.GetMouseButton(0))
-        {
-            print("MOUSE BUTTON");
-        }
-
-        if(Input.GetMouseButtonUp(0))
-        {
-            print("MOUSE BUTTON UP");
-        }
         
-
-        // vamos a usar ejes (después)
-        // - mapeo de hardware a un valor abstracto llamado eje
-        // rango [-1, 1]
-
-        // hacemos polling a eje en lugar de hacerlo a hardware específico
-        //float horizontal = Input.GetAxisRaw("Horizontal");
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        //print(horizontal + " " + vertical);
 
-        // como mover objetos 
-        // 4 opciones 
-        // 1 - directamente con su transform
-        // 2 - por medio de character controller
-        // 3 - por medio del motor de física
-        // 4 - por medio de navmesh (AI)
-
-        transform.Translate(
-            horizontal * _speed * Time.deltaTime, 
-            vertical * _speed * Time.deltaTime, 
-            0, 
-            Space.World
-        );
+        if (transform.position.x > xMax) {
+            // Stop the player from going off the right side of the screen
+            transform.position = new Vector3(xMax, transform.position.y, transform.position.z);
+        } else if (transform.position.x < xMin) {
+            transform.position = new Vector3(xMin, transform.position.y, transform.position.z);
+        } else {
+            transform.Translate(
+                        horizontal * _speed * Time.deltaTime, 
+                        vertical * _speed * Time.deltaTime, 
+                        0,
+                        Space.World
+                    );
+        }
 
         // se pueden usar ejes como botones
         if(Input.GetButtonDown("Jump")){
+            
             print("JUMP");
             
-            // se pueden hacer game objects vacíos
-            // GameObject objeto = new GameObject();
-
-            // si queremos un game object predefinido para clonar
-            // usamos instantiate
             Instantiate(
                 _disparoOriginal, 
                 transform.position, 
                 transform.rotation
             );
         }
+
+        if(Input.GetKeyDown(KeyCode.E)){
+            print("Enemigo creado");
+            
+            Instantiate(_enemigo);
+        }
     }
 
-    // fixed? - fijo
-    // update que corre en intervalo fijado en la configuración del proyecto
-    // NO puede correr más frecuentemente que update
+
     void FixedUpdate()
     {
         //Debug.LogError("FIXED UPDATE");
     }
 
-    // corre todos los cuadros
-    // una vez que los updates están terminados
     void LateUpdate()
     {
         //print("LATE UPDATE");
     }
 
-    // CÓDIGO MUY ÚTIL
-    // HOLA ESTOY EN EL REPO!
+
 }
