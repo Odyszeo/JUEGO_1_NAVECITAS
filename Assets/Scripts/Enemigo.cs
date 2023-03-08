@@ -26,18 +26,13 @@ public class Enemigo : MonoBehaviour
         
     }
 
-    void OnCollisionEnter(Collision c) 
-    {
-        // objeto collision que recibimos
-        // contiene info de la colisión
-        
-        // cómo saber qué hacer 
-        // 1. filtrar por tag
-        // 2. filtrar por layer
-        print("ENTER " + c.transform.name);
-        Destroy(gameObject);
-    }
 
+//     public void DestruirObjetos()
+// {
+//     Destroy(gameObject);
+//     Destroy(this);
+// }
+    
     // Update is called once per frame
     void Update()
     {

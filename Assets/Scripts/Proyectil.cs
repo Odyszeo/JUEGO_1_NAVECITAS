@@ -59,12 +59,22 @@ public class Proyectil : MonoBehaviour
         // objeto collision que recibimos
         // contiene info de la colisión
         
-        // cómo saber qué hacer 
+        // cómo saber qué hacer 2
         // 1. filtrar por tag
         // 2. filtrar por layer
         print("ENTER " + c.transform.name);
-        Destroy(gameObject);
+        
+        // print("Colision");  
+        // Destroy(c.gameObject);
+        if(c.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+            Destroy(c.gameObject);  
+        }
+
     }
+
+   
 
     void OnCollisionStay(Collision c) 
     {

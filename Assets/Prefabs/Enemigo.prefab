@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 7519203341664377511}
   - component: {fileID: 4273778216374949630}
   - component: {fileID: -6200030644536339103}
+  - component: {fileID: 4266072844497375980}
   m_Layer: 0
   m_Name: Enemigo
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2160160925783603024}
   m_LocalRotation: {x: 0.007417687, y: 0.00000022571841, z: 0.0046770945, w: 0.99996156}
-  m_LocalPosition: {x: 0.9240748, y: 2.2644868, z: 3.6753783}
+  m_LocalPosition: {x: 0.9240748, y: 2.2644868, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -112,3 +113,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: -1
   _tiempoDeAutodestruccion: 5
+--- !u!54 &4266072844497375980
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2160160925783603024}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

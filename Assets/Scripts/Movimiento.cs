@@ -115,6 +115,12 @@ public class Movimiento : MonoBehaviour
     }
 
 
+    IEnumerator CorrutinaDummy(){
+        yield return new WaitForSeconds(2);
+
+        print("HOLA");
+    }
+
     void FixedUpdate()
     {
         //Debug.LogError("FIXED UPDATE");
