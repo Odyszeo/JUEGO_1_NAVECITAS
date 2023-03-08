@@ -63,6 +63,7 @@ public class Proyectil : MonoBehaviour
         // 1. filtrar por tag
         // 2. filtrar por layer
         print("ENTER " + c.transform.name);
+        Destroy(gameObject);
     }
 
     void OnCollisionStay(Collision c) 
