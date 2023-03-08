@@ -14,6 +14,7 @@ public class Proyectil : MonoBehaviour
     private float _tiempoDeAutodestruccion = 5;
 
     private GUIManager _gui;
+
     
     void Start() 
     {
@@ -69,7 +70,9 @@ public class Proyectil : MonoBehaviour
         if(c.gameObject.CompareTag("Enemy"))
         {
             Destroy(gameObject);
-            Destroy(c.gameObject);  
+            Destroy(c.gameObject);
+            _gui.contadorEnemigos++;
+            _gui._texto.text = "Enemigos muertos: " + _gui.contadorEnemigos;
         }
 
     }
