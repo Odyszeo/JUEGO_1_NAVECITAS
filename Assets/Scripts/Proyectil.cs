@@ -69,7 +69,7 @@ public class Proyectil : MonoBehaviour
         // Destroy(c.gameObject);
         if(c.gameObject.CompareTag("Enemy"))
         {
-            Destroy(gameObject);
+            Destroy(gameObject);    
             Destroy(c.gameObject);
             _gui.contadorEnemigos++;
             _gui._texto.text = "Enemigos muertos: " + _gui.contadorEnemigos;

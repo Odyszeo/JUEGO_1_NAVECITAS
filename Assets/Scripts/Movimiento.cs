@@ -17,7 +17,7 @@ public class Movimiento : MonoBehaviour
     private Transform _transform;
 
     [SerializeField]
-    private float _speed = 10;
+    private float _speed = 20;
 
     [SerializeField]
     private Proyectil _disparoOriginal;
